@@ -1,0 +1,5 @@
+include ':compiler'
+include ':annotation'
+include ':glide'
+include ':app'
+rootProject.name = "GlideSourceCode"

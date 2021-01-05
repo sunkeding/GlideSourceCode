@@ -1,0 +1,23 @@
+digraph {
+  graph [label="GlideSourceCode\n ",labelloc=t,fontsize=30,ranksep=1.4];
+  node [style=filled, fillcolor="#bbbbbb"];
+  rankdir=TB;
+
+  # Projects
+
+  ":annotation" [fillcolor="#ffb3ba"];
+  ":app" [fillcolor="#baffc9"];
+  ":compiler" [fillcolor="#ffb3ba"];
+  ":glide" [fillcolor="#baffc9"];
+
+  {rank = same;}
+
+  # Dependencies
+
+  ":app" -> ":app"
+  ":app" -> ":glide" [style=dotted]
+  ":app" -> ":annotation" [style=dotted]
+  ":app" -> ":compiler" [style=dotted]
+  ":compiler" -> ":annotation"
+  ":glide" -> ":glide"
+}

@@ -1,0 +1,30 @@
+import org.gradle.internal.jvm.Jvm
+import proguard.gradle.ProGuardTask
+apply plugin: 'java'
+//plugins {
+//    id 'java-library'
+//}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+configurations {
+    // adapted from https://android.googlesource.com/platform/frameworks/testing/+/976c423/espresso/espresso-lib/build.gradle
+    // compileOnly dependencies will be repackaged, see rules in jarjar ant task below
+    jarjar
+}
+
+dependencies {
+    // from https://code.google.com/archive/p/jarjar/downloads
+    jarjar files('libs/jarjar-1.4.jar')
+
+    compileOnly "com.squareup:javapoet:${JAVAPOET_VERSION}"
+    compileOnly "com.google.auto.service:auto-service:${AUTO_SERVICE_VERSION}"
+    compileOnly "com.google.code.findbugs:jsr305:${JSR_305_VERSION}"
+    compile project(':annotation')
+    // This is to support com.sun.tools.javac.util.List, currently used in RootModuleGenerator.
+    compile files(Jvm.current().getToolsJar())
+    annotationProcessor "com.google.auto.service:auto-service:${AUTO_SERVICE_VERSION}"
+}
